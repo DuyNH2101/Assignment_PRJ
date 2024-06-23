@@ -1,2 +1,4 @@
 com\mycompany\assignment_prj\JakartaRestConfiguration.class
+controller\StudentDetailController.class
 com\mycompany\assignment_prj\resources\JakartaEE10Resource.class
+databaseconnector\DBContext.class
