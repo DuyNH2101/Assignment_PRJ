@@ -20,6 +20,7 @@ com\mycompany\assignment_prj\resources\JakartaEE10Resource.class
 model\business\Course.class
 controller\lecturer\LecturerDetailController.class
 databaseconnector\CourseDBContext.class
+controller\auth\LogoutController.class
 model\business\Student.class
 model\rbac\Role.class
 controller\lecturer\LecturerTakeExamController.class

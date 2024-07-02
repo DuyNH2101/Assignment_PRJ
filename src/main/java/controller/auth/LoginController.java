@@ -9,6 +9,8 @@ import databaseconnector.UserDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -38,6 +40,33 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User sessionUser = (User) session.getAttribute("user");
+
+        // Check if the user is already logged in via session
+        if (sessionUser != null) {
+            response.sendRedirect("view/ulti/Home.jsp"); // Redirect to a home page or dashboard
+            return;
+        }
+
+        // Check for login cookie
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("user")) {
+                    String username = cookie.getValue();
+                    UserDBContext udb = new UserDBContext();
+                    User user = udb.getByUsername(username); // Implement this method in UserDBContext
+                    if (user != null) {
+                        request.getSession().setAttribute("user", user);
+                        response.sendRedirect("view/ulti/Home.jsp"); // Redirect to a home page or dashboard
+                        return;
+                    }
+                }
+            }
+        }
+
+        // If no session user or cookie, forward to login page
         request.getRequestDispatcher("view/auth/login.jsp").forward(request, response);
     } 
 
@@ -55,7 +84,19 @@ public class LoginController extends HttpServlet {
         String password = request.getParameter("password");
         UserDBContext udb = new UserDBContext();
         User user = udb.get(username, password);
-        request.getSession().setAttribute("user", user);
+        if (user != null) {
+            request.getSession().setAttribute("user", user);
+
+            // Set a cookie to remember the login
+            Cookie loginCookie = new Cookie("user", username);
+            loginCookie.setMaxAge(60 * 60 * 24 * 7); // Cookie will expire in 7 days
+            response.addCookie(loginCookie);
+
+            response.sendRedirect("view/ulti/Home.jsp"); // Redirect to a home page or dashboard
+        } else {
+            request.setAttribute("error", "invalid username or password");
+            request.getRequestDispatcher("view/auth/login.jsp").forward(request, response);
+        }
         
     }
 

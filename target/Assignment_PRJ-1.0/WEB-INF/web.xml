@@ -24,6 +24,10 @@
         <servlet-name>LecturerTakeExamController</servlet-name>
         <servlet-class>controller.lecturer.LecturerTakeExamController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.auth.LogoutController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentDetailController</servlet-name>
         <url-pattern>/student/detail</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>LecturerTakeExamController</servlet-name>
         <url-pattern>/lecturer/exam/take</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
