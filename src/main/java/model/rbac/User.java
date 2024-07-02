@@ -4,7 +4,7 @@
  */
 package model.rbac;
 
-import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.Set;
 import model.business.Lecturer;
@@ -19,17 +19,17 @@ public class User {
     private String username;
     private String password;
     private String displayname;
-    private ArrayList<Role> roles = new ArrayList<>();
+    private Role role ;
     private Student stu;
     private Lecturer lec;
-    private boolean isManager;
+    private Manager manager;
 
     public Student getStu() {
         return stu;
     }
 
-    public void setStu(Student stu) {
-        if(lec==null&&isManager==false){
+    public void setStudent(Student stu) {
+        if(lec==null&&manager==null){
             this.stu = stu;
         }
     }
@@ -39,18 +39,18 @@ public class User {
     }
 
     public void setLec(Lecturer lec) {
-        if(stu==null&&isManager==false){
+        if(stu==null&&manager==null){
             this.lec = lec;
         }
     }
 
-    public boolean isIsManager() {
-        return isManager;
+    public Manager getManager() {
+        return manager;
     }
 
-    public void setIsManager(boolean isManager) {
+    public void setManager(Manager manager) {
         if(stu==null&&lec==null){
-            this.isManager = isManager;
+            this.manager = manager;
         }
     }
     
@@ -62,12 +62,12 @@ public class User {
         this.id = id;
     }
     
-    public ArrayList<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(ArrayList<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     
@@ -94,11 +94,5 @@ public class User {
     public void setDisplayname(String displayname) {
         this.displayname = displayname;
     }
-    public Set<Feature> getAllowedFeatures() {
-        Set<Feature> features = new HashSet<>();
-        for (Role role : roles) {
-            features.addAll(role.getFeatures());
-        }
-        return features;
-    }
+    
 }

@@ -8,6 +8,6 @@ package model.rbac;
  *
  * @author LENOVO
  */
-public class Manager {
+public class Manager{
     
 }

@@ -8,5 +8,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
 <urls>
     <!-- Logic -->
     <url>/index.html</url>
+    <url>/student/detail</url>
     
 </urls>
