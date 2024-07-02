@@ -36,6 +36,7 @@ public class UserDBContext extends DBContext<User>{
         PreparedStatement stm1 = null;
         PreparedStatement stm2 = null;
         try{
+            
             String sql1 = "SELECT u.uid,u.username,\n" +
                         "	r.roleid,r.rolename,\n" +
                         "	f.featureid,f.feature_name,f.access_url,f.httpmethod,f.params\n" +
@@ -49,7 +50,11 @@ public class UserDBContext extends DBContext<User>{
             stm1.executeQuery();
             ResultSet rs1 = stm1.executeQuery();
             int c_roleid = -1;
+            
+
             Role r = null;
+
+            
             int c_featureid = -1;
             Feature f = null;
             while (rs1.next()) {
@@ -57,7 +62,7 @@ public class UserDBContext extends DBContext<User>{
                     user = new User();
                     user.setId(rs1.getInt("uid"));
                     user.setUsername(username);
-                    user.setDisplayname(rs1.getString("displayname"));
+                    
                 }
                 int roleid = rs1.getInt("roleid");
                 int featureid = rs1.getInt("featureid");
@@ -70,7 +75,7 @@ public class UserDBContext extends DBContext<User>{
                     c_roleid = roleid;
                     switch (rolename) {
                         case "lecturer":{
-                            String sql2 = "SELECT l.lid, l.lname, l.dob, l.email, l.phonenumber\n" +
+                            String sql2 = "SELECT l.lid, lname, dob, email, phonenumber\n" +
                                             "FROM lecturers_users lu JOIN lecturers l ON l.lid = lu.lid\n" +
                                             "				 JOIN users u ON lu.[uid] = u.[uid]\n" +
                                             "WHERE u.username = ? AND u.[password] = ?";
@@ -78,13 +83,15 @@ public class UserDBContext extends DBContext<User>{
                             stm2.setString(1, username);
                             stm2.setString(2, password);
                             ResultSet rs2 = stm2.executeQuery();
-                            Lecturer l = new Lecturer();
-                            l.setId(rs2.getInt("lid"));
-                            l.setName(rs2.getString("lname"));
-                            l.setDob(rs2.getDate("dob"));
-                            l.setEmail(rs2.getString("email"));
-                            l.setPhonenumber(rs2.getString("phonenumber"));
-                            user.setLec(l);
+                            while(rs2.next()){
+                                Lecturer l = new Lecturer();
+                                l.setId(rs2.getInt("lid"));
+                                l.setDob(rs2.getDate("dob"));
+                                l.setEmail(rs2.getString("email"));
+                                l.setPhonenumber(rs2.getString("phonenumber"));
+                                l.setName(rs2.getString("lname"));
+                                user.setLec(l);
+                            }
                             break;
                         }
                         case "student":{
@@ -98,23 +105,24 @@ public class UserDBContext extends DBContext<User>{
                             stm2.setString(1, username);
                             stm2.setString(2, password);
                             ResultSet rs2 = stm2.executeQuery();
-                            Student s = new Student();
-                            s.setId(rs2.getInt("sid"));
-                            s.setName(rs2.getString("sname"));
-                            s.setGender(rs2.getBoolean("gender"));
-                            
-                            Major m = new Major();
-                            m.setId(rs2.getInt("mid"));
-                            m.setCodename(rs2.getString("mcodename"));
-                            m.setName(rs2.getString("mname"));
-                            
-                            s.setMajor(m);
-                            s.setEmail(rs2.getString("email"));
-                            s.setPhonenumber(rs2.getString("phonenumber"));
-                            s.setCurrterm(rs2.getInt("currentterm"));
-                            s.setAddress(rs2.getString("address"));
-                            s.setDob(rs2.getDate("dob"));
-                            user.setStudent(s);
+                            while(rs2.next()){
+                                Student s = new Student();
+                                s.setId(rs2.getInt("sid"));
+                                s.setName(rs2.getString("sname"));
+                                s.setGender(rs2.getBoolean("gender"));
+                                Major m = new Major();
+                                m.setId(rs2.getInt("mid"));
+                                m.setCodename(rs2.getString("mcodename"));
+                                m.setName(rs2.getString("mname"));
+
+                                s.setMajor(m);
+                                s.setEmail(rs2.getString("email"));
+                                s.setPhonenumber(rs2.getString("phonenumber"));
+                                s.setCurrterm(rs2.getInt("currentterm"));
+                                s.setAddress(rs2.getString("address"));
+                                s.setDob(rs2.getDate("dob"));
+                                user.setStudent(s);
+                            }
                             break;
                         }
                         case "manager":{
@@ -139,6 +147,7 @@ public class UserDBContext extends DBContext<User>{
                     c_featureid = featureid;
                 }
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         } finally{

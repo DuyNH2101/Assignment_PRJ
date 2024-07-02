@@ -22,6 +22,7 @@ controller\lecturer\LecturerDetailController.class
 databaseconnector\CourseDBContext.class
 model\business\Student.class
 model\rbac\Role.class
+controller\lecturer\LecturerTakeExamController.class
 databaseconnector\AssessmentDBContext.class
 databaseconnector\FeatureDBContext.class
 model\business\Major.class

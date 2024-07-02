@@ -24,7 +24,7 @@ public class User {
     private Lecturer lec;
     private Manager manager;
 
-    public Student getStu() {
+    public Student getStudent() {
         return stu;
     }
 

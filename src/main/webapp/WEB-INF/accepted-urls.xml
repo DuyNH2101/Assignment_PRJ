@@ -6,8 +6,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
 
 
 <urls>
-    <!-- Logic -->
+    <!-- HTML -->
     <url>/index.html</url>
+    
+    <!-- student -->
     <url>/student/detail</url>
     
+     <!-- JSP -->   
+    <url>/view/auth/login.jsp</url>
+    
+    <!-- auth -->
+    <url>/login</url>
+    <url>/logout</url>
+
 </urls>
