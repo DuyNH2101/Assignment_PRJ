@@ -4,12 +4,16 @@
  */
 package controller.student;
 
+import databaseconnector.StudentDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.rmi.ServerException;
+import model.business.Student;
+import model.rbac.User;
 
 /**
  *
@@ -42,7 +46,27 @@ public class StudentDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request,response);
+        try{
+            int a = Integer.parseInt(request.getParameter("sid"));
+            User curr = ((User)request.getSession().getAttribute("user"));
+            if(curr.getStudent()!=null){
+                if(curr.getStudent().getId()!=a){
+                    throw new ServerException(HttpServletResponse.SC_FORBIDDEN+":"+
+                    "Access Denied, you cannot view detail of other students " 
+                    );
+                } else {
+                    request.setAttribute("student", curr.getStudent());
+                    request.getRequestDispatcher("../view/student/Detail.jsp").forward(request, response);
+                }
+            }
+            StudentDBContext sdb =  new StudentDBContext();
+            Student s = sdb.get(a);
+        } catch (NumberFormatException e){
+            throw new ServerException(HttpServletResponse.SC_FORBIDDEN+":"+
+                    "There is an error in the student id you want to view " 
+                    );
+        }
+        
         
     }
 

@@ -72,7 +72,7 @@ public class URLAcceptanceFilter extends BaseXMLFilter {
             chain.doFilter(request, response);
         else
             throw new ServerException(HttpServletResponse.SC_FORBIDDEN+":"+
-                    "Access Denied " + current
+                    "Access Denied "
                     );
     }
 

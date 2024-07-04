@@ -28,6 +28,10 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>controller.auth.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AssessmentViewController</servlet-name>
+        <servlet-class>controller.assessment.AssessmentViewController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentDetailController</servlet-name>
         <url-pattern>/student/detail</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AssessmentViewController</servlet-name>
+        <url-pattern>/assessment/view</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

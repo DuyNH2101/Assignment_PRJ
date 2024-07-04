@@ -40,7 +40,7 @@ public class UserDBContext extends DBContext<User>{
             String sql1 = "SELECT u.uid,u.username,\n" +
                         "	r.roleid,r.rolename,\n" +
                         "	f.featureid,f.feature_name,f.access_url,f.httpmethod,f.params\n" +
-                        "FROM users u LEFT JOIN roles r ON r.roleid = u.[uid] AND r.active = 1\n" +
+                        "FROM users u LEFT JOIN roles r ON r.roleid = u.roleid AND r.active = 1\n" +
                         "		LEFT JOIN matrix_roles_features mrf ON mrf.roleid = r.roleid\n" +
                         "		LEFT JOIN features f ON f.featureid = mrf.featureid AND f.active = 1\n" +
                         "WHERE username = ? ORDER BY u.uid,r.roleid,f.featureid ASC";
@@ -166,7 +166,7 @@ public class UserDBContext extends DBContext<User>{
             String sql1 = "SELECT u.uid,u.username,\n" +
                         "	r.roleid,r.rolename,\n" +
                         "	f.featureid,f.feature_name,f.access_url,f.httpmethod,f.params\n" +
-                        "FROM users u LEFT JOIN roles r ON r.roleid = u.[uid] AND r.active = 1\n" +
+                        "FROM users u LEFT JOIN roles r ON r.roleid = u.roleid AND r.active = 1\n" +
                         "		LEFT JOIN matrix_roles_features mrf ON mrf.roleid = r.roleid\n" +
                         "		LEFT JOIN features f ON f.featureid = mrf.featureid AND f.active = 1\n" +
                         "WHERE username = ? AND password = ? ORDER BY u.uid,r.roleid,f.featureid ASC";
