@@ -4,6 +4,7 @@ databaseconnector\UserDBContext.class
 model\rbac\User.class
 model\business\Lecturer.class
 model\rbac\Manager.class
+controller\assessment\SubjectChooseController.class
 model\business\Semester.class
 controller\student\StudentDetailController.class
 com\mycompany\assignment_prj\JakartaRestConfiguration.class
@@ -13,8 +14,10 @@ model\business\Grade.class
 controller\auth\LoginController.class
 model\business\Subject.class
 util\base\BaseXMLFilter.class
+controller\assessment\AssessmentViewController.class
 databaseconnector\DBContext.class
 model\business\Assessment.class
+databaseconnector\SubjectDBContext.class
 model\business\Exam.class
 com\mycompany\assignment_prj\resources\JakartaEE10Resource.class
 model\business\Course.class

@@ -16,7 +16,7 @@ public class Subject {
     private String codename;
     private int defterm;
     private int credit;
-    private ArrayList<Assessment> assessments = new ArrayList<>();
+    final private ArrayList<Assessment> assessments = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -62,9 +62,9 @@ public class Subject {
         return assessments;
     }
 
-    public void setAssessments(ArrayList<Assessment> assessments) {
-        this.assessments = assessments;
-    }
+//    private void setAssessments(ArrayList<Assessment> assessments) {
+//        this.assessments = assessments;
+//    }
 
 //    
     

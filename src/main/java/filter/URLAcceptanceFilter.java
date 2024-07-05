@@ -14,6 +14,7 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.InputStream;
 import java.rmi.ServerException;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import model.rbac.User;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -57,6 +59,18 @@ public class URLAcceptanceFilter extends BaseXMLFilter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         String current = httpRequest.getServletPath();
+        if(current.equals("/login")||current.equals("/logout")||current.equals("/view/auth/login.jsp")){
+            chain.doFilter(request, response);
+            return;
+        }
+        HttpSession session = httpRequest.getSession();
+        User user = (User)session.getAttribute("user");
+        if(user==null){
+            request.setAttribute("error", "You haven't logged in yet!");
+            request.getRequestDispatcher("../view/auth/login.jsp").forward(request, response);
+            return;
+        }
+        
         boolean isAllowed = false;
         // Example: Log the accepted URLs
         for (String url : acceptedUrls) {
@@ -72,7 +86,7 @@ public class URLAcceptanceFilter extends BaseXMLFilter {
             chain.doFilter(request, response);
         else
             throw new ServerException(HttpServletResponse.SC_FORBIDDEN+":"+
-                    "Access Denied "
+                    "Access Denied " + current
                     );
     }
 

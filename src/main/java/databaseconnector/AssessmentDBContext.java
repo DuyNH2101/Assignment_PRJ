@@ -4,6 +4,7 @@
  */
 package databaseconnector;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import model.business.Assessment;
 
@@ -12,7 +13,8 @@ import model.business.Assessment;
  * @author LENOVO
  */
 public class AssessmentDBContext extends DBContext<Assessment>{
-
+    
+    
     @Override
     public ArrayList<Assessment> all() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

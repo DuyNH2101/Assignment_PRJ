@@ -32,6 +32,10 @@
         <servlet-name>AssessmentViewController</servlet-name>
         <servlet-class>controller.assessment.AssessmentViewController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SubjectChooseController</servlet-name>
+        <servlet-class>controller.assessment.SubjectChooseController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentDetailController</servlet-name>
         <url-pattern>/student/detail</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>AssessmentViewController</servlet-name>
         <url-pattern>/assessment/view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubjectChooseController</servlet-name>
+        <url-pattern>/assessment/choose</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

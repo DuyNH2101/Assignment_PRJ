@@ -12,9 +12,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
     <!-- student -->
     <url>/student/detail</url>
     
+    <!-- assessment -->
+    <url>/assessment/view</url>
+    <url>/assessment/choose</url>
+    
      <!-- JSP -->   
     <url>/view/auth/login.jsp</url>
     <url>/view/ulti/Home.jsp</url>
+    <url>/view/curriculum/ChooseSubjectView.jsp</url>
+    <url>/view/curriculum/AssessmentView.jsp</url>
     
     <!-- auth -->
     <url>/login</url>

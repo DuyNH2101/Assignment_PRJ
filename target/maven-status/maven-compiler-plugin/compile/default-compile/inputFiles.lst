@@ -7,12 +7,14 @@ C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\database
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\model\rbac\Role.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\controller\lecturer\LecturerTakeExamController.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\controller\student\StudentDetailController.java
+C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\controller\assessment\SubjectChooseController.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\model\business\Exam.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\databaseconnector\DBContext.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\databaseconnector\UserDBContext.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\filter\URLAcceptanceFilter.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\databaseconnector\AssessmentDBContext.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\databaseconnector\CourseDBContext.java
+C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\databaseconnector\SubjectDBContext.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\databaseconnector\FeatureDBContext.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\model\business\Major.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\model\business\Subject.java
@@ -25,5 +27,6 @@ C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\model\bu
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\com\mycompany\assignment_prj\JakartaRestConfiguration.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\controller\auth\LoginController.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\controller\auth\LogoutController.java
+C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\controller\assessment\AssessmentViewController.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\com\mycompany\assignment_prj\resources\JakartaEE10Resource.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\databaseconnector\RoleDBContext.java
