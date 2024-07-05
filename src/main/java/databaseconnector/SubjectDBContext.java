@@ -74,7 +74,7 @@ public class SubjectDBContext extends DBContext<Subject>{
         }
         return sub;
     }
-    public ArrayList<Subject> getSubjectByName(String searchtext) throws ServerException{
+    public ArrayList<Subject> getSubjectByName(String name) throws ServerException{
         ArrayList<Subject> subs = new ArrayList<>();
         PreparedStatement stm = null;
         try{
@@ -85,12 +85,65 @@ public class SubjectDBContext extends DBContext<Subject>{
                     + "FROM \n"
                     + "	    subjects s LEFT JOIN assessments a ON s.subid = a.subid\n"
                     + "WHERE \n"    
-                    + "		s.subname LIKE ? OR s.subcodename LIKE ?\n"
+                    + "		s.subname LIKE ?\n"
                     + "ORDER BY \n"
                     + "		s.subid, a.aid ASC";
             stm = connection.prepareStatement(sql);
-            stm.setString(1, "%"+searchtext+"%");
-            stm.setString(2, "%"+searchtext+"%");
+            stm.setString(1, "%"+name+"%");
+            ResultSet rs = stm.executeQuery();
+            int c_subid = -1;
+            Subject s = null;
+            Assessment a = null;
+            while(rs.next()){
+                int subid = rs.getInt("subid");
+                if(subid != 0 && subid != c_subid){
+                    c_subid = subid;
+                    s = new Subject();
+                    s.setId(rs.getInt("subid"));
+                    s.setName(rs.getString("subname"));
+                    s.setCodename(rs.getString("subcodename"));
+                    s.setDefterm(rs.getInt("defaultterm"));
+                    s.setCredit(rs.getInt("credit"));
+                    subs.add(s);
+                }
+                a = new Assessment();
+                a.setId(rs.getInt("aid"));
+                a.setCategory(rs.getString("acategory"));
+                a.setType(rs.getString("type"));
+                a.setWeight(rs.getFloat("weight"));
+                a.setCompletionCriteria(rs.getInt("completioncriteria"));
+                a.setDuration(rs.getString("duration"));
+                a.setClo(rs.getString("clo"));
+                a.setQuestionType(rs.getString("questiontype"));
+                a.setNoQuestion(rs.getString("noquestion"));
+                a.setKnowledgeAndSkill(rs.getString("knowledgeandskill"));
+                a.setGradingGuide(rs.getString("gradingguide"));
+                a.setNote(rs.getString("note"));
+                s.getAssessments().add(a);
+            }
+        } catch (SQLException ex) {
+            throw new ServerException(HttpServletResponse.SC_FORBIDDEN+":"+
+                    "sql is bugged " 
+                    );
+        }
+        return subs;
+    }
+    public ArrayList<Subject> getSubjectByCode(String code) throws ServerException{
+        ArrayList<Subject> subs = new ArrayList<>();
+        PreparedStatement stm = null;
+        try{
+            String sql = "SELECT s.subid, s.subname, s.subcodename, s.defaultterm, s.credit,\n"
+                    + "	   a.aid, a.acategory, a.[type], a.[weight], a.completioncriteria,\n"
+                    + "	   a.duration, a.clo, a.questiontype, a.noquestion,\n"
+                    + "	   a.knowledgeandskill, a.gradingguide, a.note\n"
+                    + "FROM \n"
+                    + "	    subjects s LEFT JOIN assessments a ON s.subid = a.subid\n"
+                    + "WHERE \n"    
+                    + "		s.subcodename LIKE ?\n"
+                    + "ORDER BY \n"
+                    + "		s.subid, a.aid ASC";
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, "%"+code+"%");
             ResultSet rs = stm.executeQuery();
             int c_subid = -1;
             Subject s = null;

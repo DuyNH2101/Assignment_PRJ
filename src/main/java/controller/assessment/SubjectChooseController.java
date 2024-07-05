@@ -55,10 +55,15 @@ public class SubjectChooseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        //String option = request.getParameter("option");
+        String option = request.getParameter("option");
         String searchtext = request.getParameter("searchtext");
         SubjectDBContext subdb = new SubjectDBContext();
-        ArrayList<Subject> subjects = subdb.getSubjectByName(searchtext); 
+        ArrayList<Subject> subjects = null;
+        if(option.equals("name")){
+            subjects = subdb.getSubjectByName(searchtext);
+        } else{
+            subjects = subdb.getSubjectByCode(searchtext);
+        }
         if(subjects.isEmpty()){
             throw new ServerException(HttpServletResponse.SC_FORBIDDEN+":"+
                     "subject is empty " 
