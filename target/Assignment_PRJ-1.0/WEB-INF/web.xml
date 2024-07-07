@@ -36,6 +36,14 @@
         <servlet-name>SubjectChooseController</servlet-name>
         <servlet-class>controller.assessment.SubjectChooseController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LecturerCreateExamController</servlet-name>
+        <servlet-class>controller.exam.LecturerCreateExamController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LecturerChooseCourseController</servlet-name>
+        <servlet-class>controller.exam.LecturerChooseCourseController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentDetailController</servlet-name>
         <url-pattern>/student/detail</url-pattern>
@@ -63,6 +71,14 @@
     <servlet-mapping>
         <servlet-name>SubjectChooseController</servlet-name>
         <url-pattern>/assessment/choose</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LecturerCreateExamController</servlet-name>
+        <url-pattern>/lecturer/exam/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LecturerChooseCourseController</servlet-name>
+        <url-pattern>/lecturer/exam/choose</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

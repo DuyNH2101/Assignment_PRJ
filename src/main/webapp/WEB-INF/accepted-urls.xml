@@ -16,11 +16,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
     <url>/assessment/view</url>
     <url>/assessment/choose</url>
     
-     <!-- JSP -->   
+    <!-- exam -->
+    <url>/lecturer/exam/create</url>
+    <url>/lecturer/exam/choose</url>
+    
+    
+    <!-- JSP -->
+    <!-- JSP-auth -->    
     <url>/view/auth/login.jsp</url>
+    
+    <!-- JSP-home --> 
     <url>/view/ulti/Home.jsp</url>
+    
+    <!-- JSP-curriculum --> 
     <url>/view/curriculum/ChooseSubjectView.jsp</url>
     <url>/view/curriculum/AssessmentView.jsp</url>
+    
+    <!-- JSP-exam --> 
+    <url>/view/exam/LecturerChooseCourse.jsp</url>
+    <url>/view/exam/LecturerCreateExam.jsp</url>
+    <url>/view/exam/ManagerChooseCourse.jsp</url>
     
     <!-- auth -->
     <url>/login</url>
