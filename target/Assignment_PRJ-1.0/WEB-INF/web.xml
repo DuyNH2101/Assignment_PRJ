@@ -38,11 +38,19 @@
     </servlet>
     <servlet>
         <servlet-name>LecturerCreateExamController</servlet-name>
-        <servlet-class>controller.exam.LecturerCreateExamController</servlet-class>
+        <servlet-class>controller.lecturer.LecturerCreateExamController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LecturerChooseCourseController</servlet-name>
-        <servlet-class>controller.exam.LecturerChooseCourseController</servlet-class>
+        <servlet-class>controller.lecturer.LecturerChooseCourseController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LecturerUpdateGradeController</servlet-name>
+        <servlet-class>controller.lecturer.LecturerUpdateGradeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewStudentGradeController</servlet-name>
+        <servlet-class>controller.grade.ViewStudentGradeController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>StudentDetailController</servlet-name>
@@ -79,6 +87,14 @@
     <servlet-mapping>
         <servlet-name>LecturerChooseCourseController</servlet-name>
         <url-pattern>/lecturer/exam/choose</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LecturerUpdateGradeController</servlet-name>
+        <url-pattern>/lecturer/exam/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewStudentGradeController</servlet-name>
+        <url-pattern>/student/grade/view</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

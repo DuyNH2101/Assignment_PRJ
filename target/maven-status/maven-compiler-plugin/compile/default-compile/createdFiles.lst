@@ -1,6 +1,8 @@
 filter\URLAcceptanceFilter.class
 databaseconnector\RoleDBContext.class
+controller\lecturer\LecturerCreateExamController.class
 databaseconnector\UserDBContext.class
+controller\lecturer\LecturerUpdateGradeController.class
 databaseconnector\ExamDBContext.class
 model\rbac\User.class
 model\business\Lecturer.class
@@ -13,15 +15,16 @@ model\rbac\Feature.class
 databaseconnector\StudentDBContext.class
 model\business\Grade.class
 controller\auth\LoginController.class
-controller\exam\LecturerChooseCourseController.class
 model\business\Subject.class
 util\base\BaseXMLFilter.class
+databaseconnector\GradeDBContext.class
 controller\assessment\AssessmentViewController.class
 databaseconnector\DBContext.class
 model\business\Assessment.class
 databaseconnector\SubjectDBContext.class
 model\business\Exam.class
 com\mycompany\assignment_prj\resources\JakartaEE10Resource.class
+controller\lecturer\LecturerChooseCourseController.class
 model\business\Course.class
 controller\lecturer\LecturerDetailController.class
 databaseconnector\CourseDBContext.class
@@ -31,5 +34,4 @@ model\rbac\Role.class
 controller\lecturer\LecturerTakeExamController.class
 databaseconnector\AssessmentDBContext.class
 databaseconnector\FeatureDBContext.class
-controller\exam\LecturerCreateExamController.class
 model\business\Major.class

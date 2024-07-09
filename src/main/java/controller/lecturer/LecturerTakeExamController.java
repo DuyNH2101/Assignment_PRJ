@@ -5,12 +5,16 @@
 
 package controller.lecturer;
 
+import databaseconnector.ExamDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import model.business.Exam;
+import model.rbac.User;
 
 /**
  *
@@ -53,7 +57,8 @@ public class LecturerTakeExamController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        request.getSession().setAttribute("choose_course_action", "take");
+        response.sendRedirect(request.getContextPath()+"/lecturer/exam/choose");
     } 
 
     /** 
@@ -66,7 +71,16 @@ public class LecturerTakeExamController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        int cid = Integer.parseInt(request.getParameter("courseId"));
+        int lid = ((User)(request.getSession().getAttribute("user"))).getLec().getId();
+        
+        ExamDBContext db = new ExamDBContext();
+        ArrayList<Exam> exams = db.getExamsByCourse(cid);
+        request.setAttribute("exams", exams);
+        request.setAttribute("cid", cid);
+        request.getSession().removeAttribute("choose_course_action");
+        request.getRequestDispatcher("../../view/exam/LecturerChooseExamToTake.jsp").forward(request, response);
+        
     }
 
     /** 

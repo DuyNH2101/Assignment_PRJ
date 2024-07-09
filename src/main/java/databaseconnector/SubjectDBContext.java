@@ -71,6 +71,13 @@ public class SubjectDBContext extends DBContext<Subject>{
             throw new ServerException(HttpServletResponse.SC_FORBIDDEN+":"+
                     "sql is bugged " 
                     );
+        } finally{
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return sub;
     }
@@ -125,6 +132,13 @@ public class SubjectDBContext extends DBContext<Subject>{
             throw new ServerException(HttpServletResponse.SC_FORBIDDEN+":"+
                     "sql is bugged " 
                     );
+        } finally{
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return subs;
     }
@@ -179,6 +193,13 @@ public class SubjectDBContext extends DBContext<Subject>{
             throw new ServerException(HttpServletResponse.SC_FORBIDDEN+":"+
                     "sql is bugged " 
                     );
+        } finally{
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return subs;
     }

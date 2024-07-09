@@ -19,7 +19,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
     <!-- exam -->
     <url>/lecturer/exam/create</url>
     <url>/lecturer/exam/choose</url>
+    <url>/lecturer/exam/take</url>
+    <url>/lecturer/exam/update</url>
     
+    <!-- grade -->
+    <url>/student/grade/view</url>
     
     <!-- JSP -->
     <!-- JSP-auth -->    
@@ -36,6 +40,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
     <url>/view/exam/LecturerChooseCourse.jsp</url>
     <url>/view/exam/LecturerCreateExam.jsp</url>
     <url>/view/exam/ManagerChooseCourse.jsp</url>
+    <url>/view/exam/LecturerGradeExam.jsp</url>
     
     <!-- auth -->
     <url>/login</url>

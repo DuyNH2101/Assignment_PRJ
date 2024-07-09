@@ -8,7 +8,7 @@ package model.business;
  *
  * @author LENOVO
  */
-class Grade {
+public class Grade {
     private Student student;
     private Exam exam;
     private float score;

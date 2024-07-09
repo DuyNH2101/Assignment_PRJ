@@ -59,17 +59,18 @@ public class URLAcceptanceFilter extends BaseXMLFilter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         String current = httpRequest.getServletPath();
-//        if(current.equals("/login")||current.equals("/logout")||current.equals("/view/auth/login.jsp")){
-//            chain.doFilter(request, response);
-//            return;
-//        }
         HttpSession session = httpRequest.getSession();
         User user = (User)session.getAttribute("user");
-//        if(user==null){
-//            request.setAttribute("error", "You haven't logged in yet!");
-//            request.getRequestDispatcher("../view/auth/login.jsp").forward(request, response);
-//            return;
-//        }
+        if(user==null){
+            if(current.equals("/login")||current.equals("/logout")||current.equals("/view/auth/login.jsp")){
+                chain.doFilter(request, response);
+                return;
+            }else{
+                request.setAttribute("error", "You haven't logged in yet!");
+                request.getRequestDispatcher("/view/auth/login.jsp").forward(request, response);
+                return;
+            }
+        }
         
         boolean isAllowed = false;
         // Example: Log the accepted URLs
