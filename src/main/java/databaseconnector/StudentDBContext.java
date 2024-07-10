@@ -8,14 +8,81 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.business.Course;
 import model.business.Major;
+import model.business.Semester;
 import model.business.Student;
+import model.business.Subject;
 
 /**
  *
  * @author LENOVO
  */
 public class StudentDBContext extends DBContext<Student>{
+    public Student getStudentSemesterAndCourseStudied(int sid){
+        Student s = null;
+        PreparedStatement stm = null;
+        try{
+            String sql = "SELECT s.[sid], s.sname, s.mid, s.dob, s.gender, s.email, s.phonenumber, s.[address], s.currentterm,\n"
+                    + "		c.cid, c.cname, c.lid, c.semid, c.slots,\n"
+                    + "		sub.subid, sub.subname, sub.subcodename, sub.defaultterm, sub.credit, \n"
+                    + "		sem.semid, sem.[year], sem.season, sem.active, sem.[from], sem.[to]\n"
+                    + "FROM students s JOIN students_courses sc ON s.[sid] = sc.[sid]\n"
+                    + "				JOIN courses c ON c.cid = sc.cid\n"
+                    + "				JOIN subjects sub ON sub.subid = c.subid \n"
+                    + "				JOIN semesters sem ON sem.semid = c.semid\n"
+                    + "WHERE s.[sid] = ?\n"
+                    + "ORDER BY sem.semid ASC";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, sid);
+            ResultSet rs = stm.executeQuery();
+            int c_semid = -1;
+            Semester sem = null;
+            while(rs.next()){
+                if(s==null){
+                    s = new Student();
+                    s.setId(sid);
+                }
+                int semid = rs.getInt("semid");
+                if(semid>0&&semid!=c_semid){
+                    c_semid = semid;
+                    sem = new Semester();
+                    sem.setId(semid);
+                    sem.setSeason(rs.getString("season"));
+                    sem.setYear(rs.getInt("year"));
+                    sem.setActive(rs.getBoolean("active"));
+                    sem.setFrom(rs.getDate("from"));
+                    sem.setTo(rs.getDate("to"));
+                    s.getSemesters().add(sem);
+                }
+                
+                Course c = new Course();
+                c.setId(rs.getInt("cid"));
+                c.setName(rs.getString("cname"));
+                c.setSem(sem);
+                c.setSlots(rs.getInt("slots"));
+                sem.getCourses().add(c);
+                
+                Subject sub = new Subject();
+                sub.setId(rs.getInt("subid"));
+                sub.setName(rs.getString("subname"));
+                sub.setCodename(rs.getString("subcodename"));
+                sub.setDefterm(rs.getInt("defaultterm"));
+                sub.setCredit(rs.getInt("credit"));
+                c.setSubject(sub);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return s;
+    }
     public ArrayList<Student> getStudentsByCourse(int cid) {
         ArrayList<Student> students = new ArrayList<>();
         PreparedStatement stm = null;

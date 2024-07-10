@@ -5,12 +5,16 @@
 
 package controller.grade;
 
+import databaseconnector.StudentDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.business.Semester;
+import model.business.Student;
+import model.rbac.User;
 
 /**
  *
@@ -53,7 +57,50 @@ public class ViewStudentGradeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        User user = (User)request.getSession().getAttribute("user");
+        switch(user.getRole().getRolename()){
+            case "manager":{
+                
+                break;
+            }
+            case "lecturer":{
+                
+                break;
+            }
+            case "student":{
+                String semid = request.getParameter("semid");
+                String cid = request.getParameter("cid");
+                if(semid==null){
+                    int sid = user.getStudent().getId();
+                    StudentDBContext sdb = new StudentDBContext();
+                    Student s = sdb.getStudentSemesterAndCourseStudied(sid);                    
+                    Semester sem = s.getSemesters().get(s.getSemesters().size()-1);
+                    
+                    request.setAttribute("student", s);
+                    request.setAttribute("semester", sem);
+                    request.getRequestDispatcher("../view/grade/ViewStudentGrade.jsp").forward(request, response);
+                } else{
+                    int sid = user.getStudent().getId();
+                    StudentDBContext sdb = new StudentDBContext();
+                    Student s = sdb.getStudentSemesterAndCourseStudied(sid);
+                    Semester sem = null;
+                    for(Semester asem: s.getSemesters()){
+                        if(asem.getId()==Integer.parseInt(semid)){
+                            sem = asem;
+                            break;
+                        }
+                    }
+                    if(sem==null){
+                        sem = s.getSemesters().get(s.getSemesters().size()-1);
+                    }
+                    request.setAttribute("semester", sem);
+                    request.setAttribute("student", s);
+                    
+                    request.getRequestDispatcher("../view/grade/ViewStudentGrade.jsp").forward(request, response);
+                }
+                break;
+            }
+        }
     } 
 
     /** 

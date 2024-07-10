@@ -94,7 +94,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewStudentGradeController</servlet-name>
-        <url-pattern>/student/grade/view</url-pattern>
+        <url-pattern>/grade/view</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

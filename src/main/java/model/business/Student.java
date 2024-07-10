@@ -23,7 +23,15 @@ public class Student {
     private int currterm;
     private ArrayList<Course> courses = new ArrayList<>();
     private ArrayList<Grade> grades = new ArrayList<>();
+    private ArrayList<Semester> semesters = new ArrayList<>();
 
+    public ArrayList<Semester> getSemesters() {
+        return semesters;
+    }
+
+    public void setSemesters(ArrayList<Semester> semesters) {
+        this.semesters = semesters;
+    }
 
     public int getId() {
         return id;

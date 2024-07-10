@@ -8,6 +8,7 @@ model\rbac\User.class
 model\business\Lecturer.class
 model\rbac\Manager.class
 controller\assessment\SubjectChooseController.class
+controller\grade\ViewStudentGradeController.class
 model\business\Semester.class
 controller\student\StudentDetailController.class
 com\mycompany\assignment_prj\JakartaRestConfiguration.class
