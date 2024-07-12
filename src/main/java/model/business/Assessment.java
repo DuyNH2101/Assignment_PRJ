@@ -11,6 +11,7 @@ package model.business;
 public class Assessment {
     private int id;
     private String category;
+    private int part;
     private String type;
     private float weight;
     private Subject subject;
@@ -22,6 +23,14 @@ public class Assessment {
     private String knowledgeAndSkill;
     private String gradingGuide;
     private String note;
+    
+    public int getPart() {
+        return part;
+    }
+
+    public void setPart(int part) {
+        this.part = part;
+    }
 
     public int getId() {
         return id;

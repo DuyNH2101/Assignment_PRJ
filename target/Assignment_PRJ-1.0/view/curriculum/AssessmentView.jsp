@@ -20,6 +20,7 @@
                 <tr>
                     <td>Category</td>
                     <td>Type</td>
+                    <td>Part</td>
                     <td>Weight</td>
                     <td>Completion Criteria</td>
                     <td>Duration</td>
@@ -34,6 +35,7 @@
                     <tr>
                         <td>${a.category}</td>
                         <td>${a.type}</td>
+                        <td>${a.part}</td>
                         <td><fmt:formatNumber value="${a.weight}" type="number" minFractionDigits="2" />%</td>
                         <td>&gt;<fmt:formatNumber value="${a.completionCriteria}" type="number" /></td>
                         <td>${a.duration}</td>

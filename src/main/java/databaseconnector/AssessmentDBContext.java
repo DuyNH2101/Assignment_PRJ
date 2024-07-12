@@ -13,7 +13,20 @@ import model.business.Assessment;
  * @author LENOVO
  */
 public class AssessmentDBContext extends DBContext<Assessment>{
-    
+    /*FROM 
+    assessments a
+    LEFT JOIN courses c ON c.subid = a.subid
+    LEFT JOIN exams e ON a.aid = e.aid
+    LEFT JOIN grades g ON g.eid = e.eid AND g.[sid] = 1
+WHERE 
+    a.subid = 1 
+    AND e.eid IN (
+        SELECT MAX(e.eid) AS eid
+        FROM assessments a 
+        JOIN exams e ON a.aid = e.aid
+        GROUP BY a.aid
+    )
+ORDER BY a.aid;*/
     
     @Override
     public ArrayList<Assessment> all() {

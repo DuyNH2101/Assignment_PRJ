@@ -5,6 +5,7 @@
 
 package controller.grade;
 
+import databaseconnector.GradeDBContext;
 import databaseconnector.StudentDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +13,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import model.business.Grade;
 import model.business.Semester;
 import model.business.Student;
 import model.rbac.User;
@@ -92,6 +95,11 @@ public class ViewStudentGradeController extends HttpServlet {
                     }
                     if(sem==null){
                         sem = s.getSemesters().get(s.getSemesters().size()-1);
+                    }
+                    if(cid!=null){
+                        GradeDBContext gdb = new GradeDBContext();
+                        ArrayList<Grade> grades = gdb.getGradeForCourseOfStudent(sid, Integer.parseInt(cid));
+                        request.setAttribute("grades", grades);
                     }
                     request.setAttribute("semester", sem);
                     request.setAttribute("student", s);

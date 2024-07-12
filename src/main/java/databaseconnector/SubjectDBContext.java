@@ -25,7 +25,7 @@ public class SubjectDBContext extends DBContext<Subject>{
         PreparedStatement stm = null;
         try{
             String sql = "SELECT s.subid, s.subname, s.subcodename, s.defaultterm, s.credit,\n"
-                    + "	   a.aid, a.acategory, a.[type], a.[weight], a.completioncriteria,\n"
+                    + "	   a.aid, a.part, a.acategory, a.[type], a.[weight], a.completioncriteria,\n"
                     + "	   a.duration, a.clo, a.questiontype, a.noquestion,\n"
                     + "	   a.knowledgeandskill, a.gradingguide, a.note\n"
                     + "FROM \n"
@@ -55,6 +55,7 @@ public class SubjectDBContext extends DBContext<Subject>{
                 a = new Assessment();
                 a.setId(rs.getInt("aid"));
                 a.setCategory(rs.getString("acategory"));
+                a.setPart(rs.getInt("part"));
                 a.setType(rs.getString("type"));
                 a.setWeight(rs.getFloat("weight"));
                 a.setCompletionCriteria(rs.getInt("completioncriteria"));
@@ -86,7 +87,7 @@ public class SubjectDBContext extends DBContext<Subject>{
         PreparedStatement stm = null;
         try{
             String sql = "SELECT s.subid, s.subname, s.subcodename, s.defaultterm, s.credit,\n"
-                    + "	   a.aid, a.acategory, a.[type], a.[weight], a.completioncriteria,\n"
+                    + "	   a.aid, a.acategory, a.part, a.[type], a.[weight], a.completioncriteria,\n"
                     + "	   a.duration, a.clo, a.questiontype, a.noquestion,\n"
                     + "	   a.knowledgeandskill, a.gradingguide, a.note\n"
                     + "FROM \n"
@@ -116,6 +117,7 @@ public class SubjectDBContext extends DBContext<Subject>{
                 a = new Assessment();
                 a.setId(rs.getInt("aid"));
                 a.setCategory(rs.getString("acategory"));
+                a.setPart(rs.getInt("part"));
                 a.setType(rs.getString("type"));
                 a.setWeight(rs.getFloat("weight"));
                 a.setCompletionCriteria(rs.getInt("completioncriteria"));
@@ -147,7 +149,7 @@ public class SubjectDBContext extends DBContext<Subject>{
         PreparedStatement stm = null;
         try{
             String sql = "SELECT s.subid, s.subname, s.subcodename, s.defaultterm, s.credit,\n"
-                    + "	   a.aid, a.acategory, a.[type], a.[weight], a.completioncriteria,\n"
+                    + "	   a.aid, a.acategory, a.part, a.[type], a.[weight], a.completioncriteria,\n"
                     + "	   a.duration, a.clo, a.questiontype, a.noquestion,\n"
                     + "	   a.knowledgeandskill, a.gradingguide, a.note\n"
                     + "FROM \n"
@@ -177,6 +179,7 @@ public class SubjectDBContext extends DBContext<Subject>{
                 a = new Assessment();
                 a.setId(rs.getInt("aid"));
                 a.setCategory(rs.getString("acategory"));
+                a.setPart(rs.getInt("part"));
                 a.setType(rs.getString("type"));
                 a.setWeight(rs.getFloat("weight"));
                 a.setCompletionCriteria(rs.getInt("completioncriteria"));

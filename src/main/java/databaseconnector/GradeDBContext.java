@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.business.Assessment;
 import model.business.Exam;
 import model.business.Grade;
 import model.business.Student;
@@ -19,6 +20,59 @@ import model.business.Student;
  * @author LENOVO
  */
 public class GradeDBContext extends DBContext<Grade>{
+    public ArrayList<Grade> getGradeForCourseOfStudent(int sid, int cid){
+        ArrayList<Grade> grades = new ArrayList<>();
+        PreparedStatement stm = null;
+        try{
+            String sql = "SELECT \n"
+                    + "	a.aid, a.acategory, a.[type], a.[weight], a.completioncriteria, \n"
+                    + "	e.eid,\n"
+                    + "	COALESCE(g.score, -1.0) AS score\n"
+                    + "FROM \n"
+                    + "    assessments a\n"
+                    + "    LEFT JOIN courses c ON c.subid = a.subid\n"
+                    + "    LEFT JOIN exams e ON a.aid = e.aid\n"
+                    + "    LEFT JOIN grades g ON g.eid = e.eid AND g.[sid] = ?\n"
+                    + "WHERE \n"
+                    + "    c.cid = ?\n"
+                    + "    AND e.eid IN (\n"
+                    + "        SELECT MAX(e.eid) AS eid\n"
+                    + "        FROM assessments a \n"
+                    + "        JOIN exams e ON a.aid = e.aid\n"
+                    + "        GROUP BY a.aid\n"
+                    + "    )\n"
+                    + "ORDER BY a.aid;";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, sid);
+            stm.setInt(2, cid);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                Grade g = new Grade();
+                g.setScore(rs.getFloat("score"));
+                Exam e = new Exam();
+                e.setId(rs.getInt("eid"));
+                Assessment a = new Assessment();
+                a.setId(rs.getInt("aid"));
+                a.setCategory(rs.getString("acategory"));
+                a.setType(rs.getString("type"));
+                a.setWeight(rs.getFloat("weight"));
+                a.setCompletionCriteria(rs.getInt("completioncriteria"));
+                e.setAssessment(a);
+                g.setExam(e);
+                grades.add(g);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GradeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GradeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return grades;
+    }
     public ArrayList<Grade> getGradesFromExamIds(ArrayList<Integer> eids) {
         ArrayList<Grade> grades = new ArrayList<>();
         PreparedStatement stm = null;
@@ -64,7 +118,7 @@ public class GradeDBContext extends DBContext<Grade>{
     }
 
     public void insertGradesForCourse(int cid, ArrayList<Grade> grades) {
-        String sql_remove = "DELETE grades WHERE sid IN (SELECT sid FROM students_courses WHERE cid = ?)";
+        String sql_remove = "DELETE grades WHERE sid IN (SELECT sid FROM students_courses WHERE cid = ?) AND eid = ?";
         String sql_insert = "INSERT INTO [grades]\n"
                 + "           ([eid]\n"
                 + "           ,[sid]\n"
@@ -79,11 +133,13 @@ public class GradeDBContext extends DBContext<Grade>{
         
         try {
             connection.setAutoCommit(false);
-            stm_remove = connection.prepareStatement(sql_remove);
-            stm_remove.setInt(1, cid);
-            stm_remove.executeUpdate();
+            
             
             for (Grade grade : grades) {
+                stm_remove = connection.prepareStatement(sql_remove);
+                stm_remove.setInt(1, cid);
+                stm_remove.setInt(2, grade.getExam().getId());
+                stm_remove.executeUpdate();
                 PreparedStatement stm_insert = connection.prepareStatement(sql_insert);
                 stm_insert.setInt(1, grade.getExam().getId());
                 stm_insert.setInt(2,grade.getStudent().getId());
