@@ -11,11 +11,13 @@ controller\assessment\SubjectChooseController.class
 controller\grade\ViewStudentGradeController.class
 model\business\Semester.class
 controller\student\StudentDetailController.class
+controller\grade\ViewCourseGradeController.class
 com\mycompany\assignment_prj\JakartaRestConfiguration.class
 model\rbac\Feature.class
 databaseconnector\StudentDBContext.class
 model\business\Grade.class
 controller\auth\LoginController.class
+databaseconnector\SemesterDBContext.class
 model\business\Subject.class
 util\base\BaseXMLFilter.class
 databaseconnector\GradeDBContext.class
@@ -29,7 +31,9 @@ controller\lecturer\LecturerChooseCourseController.class
 model\business\Course.class
 controller\lecturer\LecturerDetailController.class
 databaseconnector\CourseDBContext.class
+filter\URLRequiredAuthenticationFilter.class
 controller\auth\LogoutController.class
+controller\grade\ViewSubjectGradeController.class
 model\business\Student.class
 model\rbac\Role.class
 controller\lecturer\LecturerTakeExamController.class

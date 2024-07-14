@@ -61,6 +61,7 @@ public class LecturerCreateExamController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        
         ExamDBContext e = new ExamDBContext();
         e.lecturerCreateExam(Integer.parseInt(request.getParameter("assessment")), request.getParameter("datetime"), Integer.parseInt(request.getParameter("duration")));
         request.getSession().removeAttribute("choose_course_action");

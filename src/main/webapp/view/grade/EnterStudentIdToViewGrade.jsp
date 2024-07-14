@@ -54,6 +54,7 @@
         </style>
     </head>
     <body>
+        <div style="text-align: left"><a href="../../view/ulti/Home.jsp">Home</a></div>
         <h1>Enter Student ID to View Grade</h1>
         <form action="view" method="get">
             <table>

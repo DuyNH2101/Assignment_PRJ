@@ -43,11 +43,14 @@
             }
             function updateFormAction() {
                 var form = document.getElementById("courseForm");
+                var action = document.getElementById("choose_course_action");
                 var selectedAction = document.querySelector('input[name="action"]:checked').value;
-                if (selectedAction === "create") {
-                    form.action = "create";
+                if (selectedAction === "choose") {
+                    form.action = "choose";
+                    action.value = "create";
                 } else if (selectedAction === "take") {
                     form.action = "take";
+                    action.value = "take";
                 }
             }
             window.onload = function() {
@@ -58,6 +61,7 @@
         </script>
     </head>
     <body>
+        <div style="text-align: left"><a href="../../view/ulti/Home.jsp">Home</a></div>
         <h1>Choose a Course</h1>
         <form id="courseForm" action="${sessionScope.choose_course_action != null ? sessionScope.choose_course_action : ''}" method="POST">
             <label for="cname">Select Course:</label>
@@ -68,9 +72,10 @@
             </select>
             <input type="hidden" name="courseId" id="courseId" value="">
             <input type="hidden" name="subjectId" id="subjectId" value="">
+            <input type="hidden" name="choose_course_action" id="choose_course_action" value="">
             <c:if test="${sessionScope.choose_course_action == null}">
                 <label for="action">Choose Action:</label>
-                <label><input type="radio" name="action" value="create" onchange="updateFormAction()"> Create</label>
+                <label><input type="radio" name="action" value="choose" onchange="updateFormAction()"> Create</label>
                 <label><input type="radio" name="action" value="take" onchange="updateFormAction()"> Take</label>
             </c:if>
             <input type="submit" value="Choose">

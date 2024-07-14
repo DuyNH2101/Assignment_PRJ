@@ -20,6 +20,52 @@ import model.business.Subject;
  * @author LENOVO
  */
 public class CourseDBContext extends DBContext<Course>{
+    public ArrayList<Course> getAllCompletedCourse(){
+        ArrayList<Course> courses = new ArrayList<>();
+        PreparedStatement stm = null;
+        try{
+            String sql = "SELECT c.cid, c.cname, c.slots,\n"
+                    + "	   l.lid,l.lname, \n"
+                    + "	   sem.semid, sem.[year], sem.season, sem.[from], sem.[to]\n"
+                    + "FROM courses c JOIN lecturers l ON c.lid = l.lid\n"
+                    + "			   JOIN semesters sem ON sem.semid = c.semid\n"
+                    + "WHERE sem.active = 0";
+            stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                Course c = new Course();
+                c.setId(rs.getInt("cid"));
+                c.setName(rs.getString("cname"));
+                c.setSlots(rs.getInt("slots"));
+                
+                Lecturer l = new Lecturer();
+                l.setId(rs.getInt("lid"));
+                l.setName(rs.getString("lname"));
+                c.setLecturer(l);
+                
+                Semester sem = new Semester();
+                sem.setId(rs.getInt("semid"));
+                sem.setYear(rs.getInt("year"));
+                sem.setSeason(rs.getString("season"));
+                sem.setActive(false);
+                sem.setFrom(rs.getDate("from"));
+                sem.setTo(rs.getDate("to"));
+                c.setSem(sem);
+                
+                courses.add(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return courses;
+    }
     public ArrayList<Course> getCoursesByLecturerID(int lecid){
         ArrayList<Course> courses = new ArrayList<>();
         PreparedStatement stm = null;

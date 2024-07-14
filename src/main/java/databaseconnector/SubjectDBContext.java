@@ -208,7 +208,34 @@ public class SubjectDBContext extends DBContext<Subject>{
     }
     @Override
     public ArrayList<Subject> all() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Subject> subjects = new ArrayList<>();
+        PreparedStatement stm = null;
+        try {
+            String sql = "SELECT s.subid, s.subname, s.subcodename, s.defaultterm, s.credit\n"
+                    + "FROM subjects s ";
+            stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                Subject sub = new Subject();
+                sub.setId(rs.getInt("subid"));
+                sub.setName(rs.getString("subname"));
+                sub.setCodename(rs.getString("subcodename"));
+                sub.setCredit(rs.getInt("credit"));
+                sub.setDefterm(rs.getInt("defaultterm"));
+                
+                subjects.add(sub);
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(GradeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GradeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return subjects;
     }
 
     @Override

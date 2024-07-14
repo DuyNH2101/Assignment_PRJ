@@ -30,24 +30,25 @@
         </style>
     </head>
     <body>
+        <div style="text-align: left"><a href="../../view/ulti/Home.jsp">Home</a></div>
         <h1>Create Exam for Subject: ${subject.name}</h1>
-    
-    <form action="create" method="POST">
-        <input type="hidden" name="subjectId" value="${subject.id}">
         
-        <label for="assessment">Choose Assessment:</label>
-        <select name="assessment" id="assessment">
-            <option value="">Select an Assessment</option>
-            <c:forEach items="${subject.assessments}" var="assessment">
-                <option value="${assessment.id}">${assessment.category} - ${assessment.type}</option>
-            </c:forEach>
-        </select>
-        <label for="datetime">Exam Date and Time:</label>
-        <input type="datetime-local" id="datetime" name="datetime" required>
-        
-        <label for="duration">Exam Duration (in minutes):</label>
-        <input type="number" id="duration" name="duration" min="1" required>
-        <input type="submit" value="Create Exam">
-    </form>
+        <form action="create" method="POST">
+            <input type="hidden" name="subjectId" value="${subject.id}">
+
+            <label for="assessment">Choose Assessment:</label>
+            <select name="assessment" id="assessment">
+                <option value="">Select an Assessment</option>
+                <c:forEach items="${subject.assessments}" var="assessment">
+                    <option value="${assessment.id}">${assessment.category} - ${assessment.type}</option>
+                </c:forEach>
+            </select>
+            <label for="datetime">Exam Date and Time:</label>
+            <input type="datetime-local" id="datetime" name="datetime" required>
+
+            <label for="duration">Exam Duration (in minutes):</label>
+            <input type="number" id="duration" name="duration" min="1" required>
+            <input type="submit" value="Create Exam">
+        </form>
     </body>
 </html>

@@ -20,6 +20,102 @@ import model.business.Student;
  * @author LENOVO
  */
 public class GradeDBContext extends DBContext<Grade>{
+    public ArrayList<Grade> getAverageGradeOfStudentsBySemIdAndSubId(int subid, int semid){
+        ArrayList<Grade> grades = new ArrayList<>();
+        PreparedStatement stm = null;
+        try{
+            String sql = "SELECT s.[sid], s.sname,\n"
+                    + "	   ave.score\n"
+                    + "FROM students s JOIN (SELECT SUM(g.score * a.[weight] / 100) AS score, g.[sid]\n"
+                    + "    FROM exams e\n"
+                    + "    INNER JOIN grades g ON g.eid = e.eid\n"
+                    + "    INNER JOIN assessments a ON e.aid = a.aid\n"
+                    + "	INNER JOIN subjects sub ON a.subid = sub.subid\n"
+                    + "	INNER JOIN courses c ON c.subid = sub.subid\n"
+                    + "	INNER JOIN semesters sem ON sem.semid = c.semid\n"
+                    + "    WHERE sub.subid = ?\n"
+                    + "	  AND g.score != -1\n"
+                    + "	  AND sem.semid = ?\n"
+                    + "      AND e.eid IN (\n"
+                    + "        SELECT MAX(e.eid) AS eid\n"
+                    + "        FROM assessments a \n"
+                    + "        JOIN exams e ON a.aid = e.aid\n"
+                    + "        GROUP BY a.aid\n"
+                    + "      )\n"
+                    + "    GROUP BY a.subid, g.[sid]) ave ON ave.[sid] = s.[sid]";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, subid);
+            stm.setInt(2, semid);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                Grade g = new Grade();
+                g.setScore(rs.getFloat("score"));
+                
+                Student s = new Student();
+                s.setId(rs.getByte("sid"));
+                s.setName(rs.getString("sname"));
+                
+                g.setStudent(s);
+                grades.add(g);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GradeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GradeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return grades;
+    }
+    public ArrayList<Grade> getAverageGradeOfStudentsByCourseId(int cid){
+        ArrayList<Grade> grades = new ArrayList<>();
+        PreparedStatement stm = null;
+        try{
+            String sql = "SELECT s.[sid], s.sname,\n"
+                    + "	   ave.score\n"
+                    + "FROM students s JOIN (SELECT SUM(g.score * a.[weight] / 100) AS score, g.[sid]\n"
+                    + "    FROM exams e\n"
+                    + "    INNER JOIN grades g ON g.eid = e.eid\n"
+                    + "    INNER JOIN assessments a ON e.aid = a.aid\n"
+                    + "	INNER JOIN courses c ON a.subid = c.subid\n"
+                    + "    WHERE c.cid = ?\n"
+                    + "	  AND g.score != -1\n"
+                    + "      AND e.eid IN (\n"
+                    + "        SELECT MAX(e.eid) AS eid\n"
+                    + "        FROM assessments a \n"
+                    + "        JOIN exams e ON a.aid = e.aid\n"
+                    + "        GROUP BY a.aid\n"
+                    + "      )\n"
+                    + "    GROUP BY a.subid, g.[sid]) ave ON ave.[sid] = s.[sid]";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, cid);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                Grade g = new Grade();
+                g.setScore(rs.getFloat("score"));
+                
+                Student s = new Student();
+                s.setId(rs.getByte("sid"));
+                s.setName(rs.getString("sname"));
+                
+                g.setStudent(s);
+                grades.add(g);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GradeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GradeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return grades;
+    }
     public ArrayList<Grade> getGradeForCourseOfStudent(int sid, int cid){
         ArrayList<Grade> grades = new ArrayList<>();
         PreparedStatement stm = null;

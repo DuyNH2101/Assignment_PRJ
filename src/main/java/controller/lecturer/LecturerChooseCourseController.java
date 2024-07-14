@@ -86,22 +86,43 @@ public class LecturerChooseCourseController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         //int cid = Integer.parseInt(request.getParameter("cname"));
-        if(request.getSession().getAttribute("choose_course_action").equals("create")){
-            int subid = Integer.parseInt(request.getParameter("subjectId"));
-            SubjectDBContext sdb = new SubjectDBContext();
-            Subject subject = sdb.getSubjectByID(subid);
-            request.setAttribute("subject", subject);
-            request.getRequestDispatcher("../../view/exam/LecturerCreateExam.jsp").forward(request, response);
-        } else if(request.getSession().getAttribute("choose_course_action").equals("take")){
-            int cid = Integer.parseInt(request.getParameter("cid"));
-            
+        if(request.getSession().getAttribute("choose_course_action")==null){
+            String action = request.getParameter("choose_course_action");
+            if(action.equals("create")){
+                int subid = Integer.parseInt(request.getParameter("subjectId"));
+                SubjectDBContext sdb = new SubjectDBContext();
+                Subject subject = sdb.getSubjectByID(subid);
+                request.setAttribute("subject", subject);
+                request.getRequestDispatcher("../../view/exam/LecturerCreateExam.jsp").forward(request, response);
+            } else if(action.equals("take")){
+                int cid = Integer.parseInt(request.getParameter("cid"));
 
-            ExamDBContext db = new ExamDBContext();
-            ArrayList<Exam> exams = db.getExamsByCourse(cid);
-            request.setAttribute("exams", exams);
 
-            request.getRequestDispatcher("../view/exam/LecturerChooseExamToTake.jsp").forward(request, response);
+                ExamDBContext db = new ExamDBContext();
+                ArrayList<Exam> exams = db.getExamsByCourse(cid);
+                request.setAttribute("exams", exams);
+
+                request.getRequestDispatcher("../view/exam/LecturerChooseExamToTake.jsp").forward(request, response);
+            }
+        } else {
+            if(request.getSession().getAttribute("choose_course_action").equals("create")){
+                int subid = Integer.parseInt(request.getParameter("subjectId"));
+                SubjectDBContext sdb = new SubjectDBContext();
+                Subject subject = sdb.getSubjectByID(subid);
+                request.setAttribute("subject", subject);
+                request.getRequestDispatcher("../../view/exam/LecturerCreateExam.jsp").forward(request, response);
+            } else if(request.getSession().getAttribute("choose_course_action").equals("take")){
+                int cid = Integer.parseInt(request.getParameter("cid"));
+
+
+                ExamDBContext db = new ExamDBContext();
+                ArrayList<Exam> exams = db.getExamsByCourse(cid);
+                request.setAttribute("exams", exams);
+
+                request.getRequestDispatcher("../view/exam/LecturerChooseExamToTake.jsp").forward(request, response);
+            }
         }
+        
     }
 
     /** 

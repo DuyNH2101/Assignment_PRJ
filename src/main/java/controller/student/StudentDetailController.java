@@ -46,28 +46,30 @@ public class StudentDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try{
-            int a = Integer.parseInt(request.getParameter("sid"));
-            User curr = ((User)request.getSession().getAttribute("user"));
-            if(curr.getStudent()!=null){
-                if(curr.getStudent().getId()!=a){
-                    throw new ServerException(HttpServletResponse.SC_FORBIDDEN+":"+
-                    "Access Denied, you cannot view detail of other students " 
-                    );
-                } else {
-                    request.setAttribute("student", curr.getStudent());
-                    request.getRequestDispatcher("../view/student/Detail.jsp").forward(request, response);
+        if(((User)request.getSession().getAttribute("user")).getStudent()!=null){
+            try{
+                int a = Integer.parseInt(request.getParameter("sid"));
+                User curr = ((User)request.getSession().getAttribute("user"));
+                if(curr.getStudent()!=null){
+                    if(curr.getStudent().getId()!=a){
+                        throw new ServerException(HttpServletResponse.SC_FORBIDDEN+":"+
+                        "Access Denied, you cannot view detail of other students " 
+                        );
+                    } else {
+                        request.setAttribute("student", curr.getStudent());
+                        request.getRequestDispatcher("../view/student/Detail.jsp").forward(request, response);
+                    }
                 }
+                StudentDBContext sdb =  new StudentDBContext();
+                Student s = sdb.get(a);
+            } catch (NumberFormatException e){
+                throw new ServerException(HttpServletResponse.SC_FORBIDDEN+":"+
+                        "There is an error in the student id you want to view " 
+                        );
             }
-            StudentDBContext sdb =  new StudentDBContext();
-            Student s = sdb.get(a);
-        } catch (NumberFormatException e){
-            throw new ServerException(HttpServletResponse.SC_FORBIDDEN+":"+
-                    "There is an error in the student id you want to view " 
-                    );
+        } else{
+            request.getRequestDispatcher("../view/student/EnterStudentIdToFind.jsp").forward(request, response);
         }
-        
-        
     }
 
     /**
@@ -81,7 +83,11 @@ public class StudentDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        int sid = Integer.parseInt(request.getParameter("sid"));
+        StudentDBContext sdb =  new StudentDBContext();
+        Student s = sdb.get(sid);
+        request.setAttribute("student", s);
+        request.getRequestDispatcher("../view/student/Detail.jsp").forward(request, response);
     }
 
     /**

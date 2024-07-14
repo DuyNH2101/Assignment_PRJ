@@ -67,7 +67,7 @@ public class ViewStudentGradeController extends HttpServlet {
                 String cid = request.getParameter("cid");
                 String r_sid = request.getParameter("sid");
                 if(r_sid==null){
-                    request.getRequestDispatcher("../view/grade/EnterStudentIdToViewGrade.jsp").forward(request, response);
+                    request.getRequestDispatcher("../../view/grade/EnterStudentIdToViewGrade.jsp").forward(request, response);
                 }else{
                     if(semid==null){
                         int sid = Integer.parseInt(r_sid);
@@ -77,7 +77,7 @@ public class ViewStudentGradeController extends HttpServlet {
 
                         request.setAttribute("student", s);
                         request.setAttribute("semester", sem);
-                        request.getRequestDispatcher("../view/grade/ViewStudentGrade.jsp").forward(request, response);
+                        request.getRequestDispatcher("../../view/grade/ViewStudentGrade.jsp").forward(request, response);
                     } else{
                         int sid = Integer.parseInt(r_sid);
                         StudentDBContext sdb = new StudentDBContext();
@@ -100,7 +100,7 @@ public class ViewStudentGradeController extends HttpServlet {
                         request.setAttribute("semester", sem);
                         request.setAttribute("student", s);
 
-                        request.getRequestDispatcher("../view/grade/ViewStudentGrade.jsp").forward(request, response);
+                        request.getRequestDispatcher("../../view/grade/ViewStudentGrade.jsp").forward(request, response);
                     }
                 }
                 break;
@@ -110,7 +110,7 @@ public class ViewStudentGradeController extends HttpServlet {
                 String cid = request.getParameter("cid");
                 String r_sid = request.getParameter("sid");
                 if(r_sid==null){
-                    request.getRequestDispatcher("../view/grade/EnterStudentIdToViewGrade.jsp").forward(request, response);
+                    request.getRequestDispatcher("../../view/grade/EnterStudentIdToViewGrade.jsp").forward(request, response);
                 }else{
                     if(semid==null){
                         int sid = Integer.parseInt(r_sid);
@@ -120,7 +120,7 @@ public class ViewStudentGradeController extends HttpServlet {
 
                         request.setAttribute("student", s);
                         request.setAttribute("semester", sem);
-                        request.getRequestDispatcher("../view/grade/ViewStudentGrade.jsp").forward(request, response);
+                        request.getRequestDispatcher("../../view/grade/ViewStudentGrade.jsp").forward(request, response);
                     } else{
                         int sid = Integer.parseInt(r_sid);
                         StudentDBContext sdb = new StudentDBContext();
@@ -143,7 +143,7 @@ public class ViewStudentGradeController extends HttpServlet {
                         request.setAttribute("semester", sem);
                         request.setAttribute("student", s);
 
-                        request.getRequestDispatcher("../view/grade/ViewStudentGrade.jsp").forward(request, response);
+                        request.getRequestDispatcher("../../view/grade/ViewStudentGrade.jsp").forward(request, response);
                     }
                 }
                 break;
@@ -159,7 +159,7 @@ public class ViewStudentGradeController extends HttpServlet {
                     
                     request.setAttribute("student", s);
                     request.setAttribute("semester", sem);
-                    request.getRequestDispatcher("../view/grade/ViewStudentGrade.jsp").forward(request, response);
+                    request.getRequestDispatcher("../../view/grade/ViewStudentGrade.jsp").forward(request, response);
                 } else{
                     int sid = user.getStudent().getId();
                     StudentDBContext sdb = new StudentDBContext();
@@ -182,7 +182,7 @@ public class ViewStudentGradeController extends HttpServlet {
                     request.setAttribute("semester", sem);
                     request.setAttribute("student", s);
                     
-                    request.getRequestDispatcher("../view/grade/ViewStudentGrade.jsp").forward(request, response);
+                    request.getRequestDispatcher("../../view/grade/ViewStudentGrade.jsp").forward(request, response);
                 }
                 break;
             }

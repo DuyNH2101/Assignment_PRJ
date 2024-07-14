@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this template
+-->
+
+
+<urls>
+    <!-- HTML -->
+    <url>/index.html</url>
+    
+    <!-- student -->
+    <url>/student/detail</url>
+    
+    <!-- assessment -->
+    <url>/assessment/view</url>
+    <url>/assessment/choose</url>
+    
+    <!-- exam -->
+    <url>/lecturer/exam/create</url>
+    <url>/lecturer/exam/choose</url>
+    <url>/lecturer/exam/take</url>
+    <url>/lecturer/exam/update</url>
+    
+    <!-- grade -->
+    <url>/grade/student/view</url>
+    <url>/grade/course/view</url>
+    <url>/grade/subject/view</url>
+    
+<!--     JSP 
+     JSP-auth     
+    <url>/view/auth/login.jsp</url>
+    
+     JSP-home  
+    <url>/view/ulti/Home.jsp</url>
+    
+     JSP-curriculum  
+    <url>/view/curriculum/ChooseSubjectView.jsp</url>
+    <url>/view/curriculum/AssessmentView.jsp</url>
+    
+     JSP-exam  
+    <url>/view/exam/LecturerChooseCourse.jsp</url>
+    <url>/view/exam/LecturerCreateExam.jsp</url>
+    <url>/view/exam/ManagerChooseCourse.jsp</url>
+    <url>/view/exam/LecturerGradeExam.jsp</url>
+    
+     JSP-grade 
+    <url>/view/grade/ViewStudentGrade.jsp</url>
+    <url>/view/grade/EnterStudentIdToViewGrade.jsp</url>
+    <url>/view/grade/ChooseCourseToViewStatistic.jsp</url>
+    <url>/view/grade/ViewStatisticOfCourse.jsp</url>
+    <url>/view/grade/ViewStatisticOfSubject.jsp</url>-->
+    
+    <!-- auth -->
+    
+    <url>/logout</url>
+
+</urls>
+

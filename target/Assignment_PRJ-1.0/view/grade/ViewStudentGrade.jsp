@@ -45,6 +45,7 @@
         </style>
     </head>
     <body>
+        <div style="text-align: left"><a href="../../view/ulti/Home.jsp">Home</a></div>
         <table>
             <tbody>
                 <tr>

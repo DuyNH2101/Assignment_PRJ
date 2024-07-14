@@ -1,8 +1,10 @@
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\controller\lecturer\LecturerDetailController.java
+C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\controller\grade\ViewCourseGradeController.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\controller\lecturer\LecturerChooseCourseController.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\model\business\Course.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\controller\grade\ViewStudentGradeController.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\model\business\Semester.java
+C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\filter\URLRequiredAuthenticationFilter.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\model\business\Lecturer.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\model\rbac\User.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\databaseconnector\StudentDBContext.java
@@ -25,6 +27,8 @@ C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\model\rb
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\util\base\BaseXMLFilter.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\model\business\Student.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\model\business\Assessment.java
+C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\databaseconnector\SemesterDBContext.java
+C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\controller\grade\ViewSubjectGradeController.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\model\business\Grade.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\com\mycompany\assignment_prj\JakartaRestConfiguration.java
 C:\Users\LENOVO\Documents\NetBeansProjects\Assignment_PRJ\src\main\java\controller\auth\LoginController.java

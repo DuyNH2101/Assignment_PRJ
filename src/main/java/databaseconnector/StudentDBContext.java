@@ -136,6 +136,7 @@ public class StudentDBContext extends DBContext<Student>{
             if(rs.next()){
                 s.setId(rs.getInt("sid"));
                 s.setName(rs.getString("sname"));
+                s.setDob(rs.getDate("dob"));
                 
                 Major m = new Major();
                 m.setId(rs.getInt("mid"));
