@@ -63,11 +63,89 @@ public class ViewStudentGradeController extends HttpServlet {
         User user = (User)request.getSession().getAttribute("user");
         switch(user.getRole().getRolename()){
             case "manager":{
-                
+                String semid = request.getParameter("semid");
+                String cid = request.getParameter("cid");
+                String r_sid = request.getParameter("sid");
+                if(r_sid==null){
+                    request.getRequestDispatcher("../view/grade/EnterStudentIdToViewGrade.jsp").forward(request, response);
+                }else{
+                    if(semid==null){
+                        int sid = Integer.parseInt(r_sid);
+                        StudentDBContext sdb = new StudentDBContext();
+                        Student s = sdb.getStudentSemesterAndCourseStudied(sid);                    
+                        Semester sem = s.getSemesters().get(s.getSemesters().size()-1);
+
+                        request.setAttribute("student", s);
+                        request.setAttribute("semester", sem);
+                        request.getRequestDispatcher("../view/grade/ViewStudentGrade.jsp").forward(request, response);
+                    } else{
+                        int sid = Integer.parseInt(r_sid);
+                        StudentDBContext sdb = new StudentDBContext();
+                        Student s = sdb.getStudentSemesterAndCourseStudied(sid);
+                        Semester sem = null;
+                        for(Semester asem: s.getSemesters()){
+                            if(asem.getId()==Integer.parseInt(semid)){
+                                sem = asem;
+                                break;
+                            }
+                        }
+                        if(sem==null){
+                            sem = s.getSemesters().get(s.getSemesters().size()-1);
+                        }
+                        if(cid!=null){
+                            GradeDBContext gdb = new GradeDBContext();
+                            ArrayList<Grade> grades = gdb.getGradeForCourseOfStudent(sid, Integer.parseInt(cid));
+                            request.setAttribute("grades", grades);
+                        }
+                        request.setAttribute("semester", sem);
+                        request.setAttribute("student", s);
+
+                        request.getRequestDispatcher("../view/grade/ViewStudentGrade.jsp").forward(request, response);
+                    }
+                }
                 break;
             }
             case "lecturer":{
-                
+                String semid = request.getParameter("semid");
+                String cid = request.getParameter("cid");
+                String r_sid = request.getParameter("sid");
+                if(r_sid==null){
+                    request.getRequestDispatcher("../view/grade/EnterStudentIdToViewGrade.jsp").forward(request, response);
+                }else{
+                    if(semid==null){
+                        int sid = Integer.parseInt(r_sid);
+                        StudentDBContext sdb = new StudentDBContext();
+                        Student s = sdb.getStudentSemesterAndCourseStudied(sid);                    
+                        Semester sem = s.getSemesters().get(s.getSemesters().size()-1);
+
+                        request.setAttribute("student", s);
+                        request.setAttribute("semester", sem);
+                        request.getRequestDispatcher("../view/grade/ViewStudentGrade.jsp").forward(request, response);
+                    } else{
+                        int sid = Integer.parseInt(r_sid);
+                        StudentDBContext sdb = new StudentDBContext();
+                        Student s = sdb.getStudentSemesterAndCourseStudied(sid);
+                        Semester sem = null;
+                        for(Semester asem: s.getSemesters()){
+                            if(asem.getId()==Integer.parseInt(semid)){
+                                sem = asem;
+                                break;
+                            }
+                        }
+                        if(sem==null){
+                            sem = s.getSemesters().get(s.getSemesters().size()-1);
+                        }
+                        if(cid!=null){
+                            GradeDBContext gdb = new GradeDBContext();
+                            ArrayList<Grade> grades = gdb.getGradeForCourseOfStudent(sid, Integer.parseInt(cid));
+                            request.setAttribute("grades", grades);
+                        }
+                        request.setAttribute("semester", sem);
+                        request.setAttribute("student", s);
+
+                        request.getRequestDispatcher("../view/grade/ViewStudentGrade.jsp").forward(request, response);
+                    }
+                }
                 break;
             }
             case "student":{

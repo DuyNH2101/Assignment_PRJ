@@ -64,7 +64,13 @@ public class ExamDBContext extends DBContext<Exam>{
                     + "FROM exams e INNER JOIN assessments a ON a.aid = e.aid\n"
                     + "	         INNER JOIN subjects sub ON sub.subid = a.subid\n"
                     + "			 INNER JOIN courses c ON c.subid = sub.subid\n"
-                    + "WHERE c.cid = ?";
+                    + "WHERE c.cid = ?"
+                    + "    AND e.eid IN (\n"
+                    + "        SELECT MAX(e.eid) AS eid\n"
+                    + "        FROM assessments a \n"
+                    + "        JOIN exams e ON a.aid = e.aid\n"
+                    + "        GROUP BY a.aid\n"
+                    + "    )\n";
 
             stm = connection.prepareStatement(sql);
             stm.setInt(1, cid);

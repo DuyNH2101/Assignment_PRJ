@@ -32,7 +32,10 @@
                                 <input type="text" name="score${s.id}_${e.id}"
                                        <c:forEach items="${requestScope.grades}" var="g">
                                            <c:if test="${e.id eq g.exam.id and s.id eq g.student.id}">
-                                               value="${g.score}"
+                                               <c:choose>
+                                                   <c:when test="${g.score>=0}"> value="${g.score}"</c:when>
+                                                   <c:otherwise>value=""</c:otherwise>
+                                                </c:choose>
                                            </c:if>
                                        </c:forEach>
                                        />

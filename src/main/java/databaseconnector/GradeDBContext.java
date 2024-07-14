@@ -118,7 +118,7 @@ public class GradeDBContext extends DBContext<Grade>{
     }
 
     public void insertGradesForCourse(int cid, ArrayList<Grade> grades) {
-        String sql_remove = "DELETE grades WHERE sid IN (SELECT sid FROM students_courses WHERE cid = ?) AND eid = ?";
+        String sql_remove = "DELETE grades WHERE sid = ? AND eid = ?";
         String sql_insert = "INSERT INTO [grades]\n"
                 + "           ([eid]\n"
                 + "           ,[sid]\n"
@@ -137,7 +137,7 @@ public class GradeDBContext extends DBContext<Grade>{
             
             for (Grade grade : grades) {
                 stm_remove = connection.prepareStatement(sql_remove);
-                stm_remove.setInt(1, cid);
+                stm_remove.setInt(1, grade.getStudent().getId());
                 stm_remove.setInt(2, grade.getExam().getId());
                 stm_remove.executeUpdate();
                 PreparedStatement stm_insert = connection.prepareStatement(sql_insert);
@@ -160,7 +160,9 @@ public class GradeDBContext extends DBContext<Grade>{
         {
             try {
                 connection.setAutoCommit(true);
-                stm_remove.close();
+                if(stm_remove!=null){
+                    stm_remove.close();
+                }
                 for (PreparedStatement stm_insert : stm_inserts) {
                     stm_insert.close();
                 }

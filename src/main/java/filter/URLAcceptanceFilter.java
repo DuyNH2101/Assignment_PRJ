@@ -60,6 +60,11 @@ public class URLAcceptanceFilter extends BaseXMLFilter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         String current = httpRequest.getServletPath();
         HttpSession session = httpRequest.getSession();
+        if((!current.equals("/lecturer/exam/choose"))||(!current.equals("/lecturer/exam/take"))||(!current.equals("/view/exam/LecturerCreateExam.jsp"))||(!current.equals("/view/exam/LecturerChooseCourse.jsp"))){
+            if(httpRequest.getSession().getAttribute("choose_course_action")!=null){
+                httpRequest.getSession().removeAttribute("choose_course_action");
+            }
+        }
         User user = (User)session.getAttribute("user");
         if(user==null){
             if(current.equals("/login")||current.equals("/logout")||current.equals("/view/auth/login.jsp")){

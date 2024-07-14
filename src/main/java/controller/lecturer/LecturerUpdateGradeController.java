@@ -120,6 +120,19 @@ public class LecturerUpdateGradeController extends HttpServlet {
               g.setScore(Float.parseFloat(raw_score));
               
               grades.add(g);
+          } else{
+              Grade g = new Grade();
+              Exam e = new Exam();
+              e.setId(eid);
+              
+              Student s = new Student();
+              s.setId(sid);
+              
+              g.setExam(e);
+              g.setStudent(s);
+              g.setScore(-1.0f);
+              
+              grades.add(g);
           }
         }
         
